@@ -1,0 +1,28 @@
+eureka:
+    client:
+        fetch-registry: true
+        register-with-eureka: true
+        service-url:
+            defaultZone: http://yyt:123456@127.0.0.1:8100/eureka
+    instance:
+        instance-id: ${spring.application.name}###${server.port}
+        ip-address: 127.0.0.1
+        prefer-ip-address: true
+server:
+    port: 8081
+spring:
+    application:
+        name: diet-service
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: 123456
+        url: jdbc:mysql://127.0.0.1:3306/diet?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT
+        username: root
+    jpa:
+        database: mysql
+        hibernate:
+            ddl-auto: update
+        open-in-view: true
+        properties:
+            dialect: org.hibernate.dialect.MySQL5Dialect
+        show-sql: true

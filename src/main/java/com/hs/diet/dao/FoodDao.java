@@ -10,5 +10,5 @@ import java.util.List;
 public interface FoodDao extends JpaRepository<Food,String> {
     Food findById(Long id);
     List<Food> findByName(String name);
-    List<Food> findByClassification(FoodSecondaryClassification classification);
+    List<Food> findBySecondaryClassification(FoodSecondaryClassification secondaryClassification);
 }

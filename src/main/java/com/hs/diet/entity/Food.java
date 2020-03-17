@@ -20,10 +20,10 @@ public class Food {
     private  String name;
 
     @Column
-    private int primary_classification;
+    private int primaryClassification;
 
     @Column
-    private int secondary_classification;
+    private int secondaryClassification;
 
     @Column
     private String description;

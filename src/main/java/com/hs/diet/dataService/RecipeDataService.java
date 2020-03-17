@@ -8,5 +8,5 @@ import java.util.List;
 public interface RecipeDataService {
     Recipe findById(Long id);
     List<Recipe> findByClassification(RecipeSecondaryClassification classification);
-
+    
 }

@@ -25,6 +25,6 @@ public class FoodDataServiceImpl implements FoodDataService {
 
     @Override
     public List<Food> findByClassification(FoodSecondaryClassification classification) {
-        return foodDao.findByClassification(classification);
+        return foodDao.findBySecondaryClassification(classification);
     }
 }

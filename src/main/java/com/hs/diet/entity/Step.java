@@ -6,4 +6,5 @@ import javax.persistence.Embeddable;
 public class Step {
     private String description;
     private String imgUrl;
+    private int stepNo;
 }

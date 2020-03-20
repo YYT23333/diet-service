@@ -1,7 +1,6 @@
 package com.hs.diet.entity;
 
-import com.hs.diet.enums.RecipePrimaryClassification;
-import com.hs.diet.enums.RecipeSecondaryClassification;
+import com.hs.diet.enums.RecipeClassification;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,10 +22,7 @@ public class Recipe {
     private String name;
 
     @Column
-    private RecipePrimaryClassification primaryClassification;
-
-    @Column
-    private RecipeSecondaryClassification secondaryClassification;
+    private RecipeClassification classification;
 
     @Column
     private String description;

@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableEurekaClient
 @EnableSwagger2
 @EnableJpaRepositories("com.hs.diet.dao")
-@ComponentScan(basePackages = {"com.hs.diet.controller", "com.hs.diet.service"})//手动指定bean组件扫描范围
+@ComponentScan(basePackages = {"com.hs.diet.controller", "com.hs.diet.serviceImpl","com.hs.diet.dataServiceImpl"})//手动指定bean组件扫描范围
 public class DietServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(DietServiceApplication.class, args);

@@ -6,6 +6,5 @@ import javax.persistence.Embeddable;
 public class DietItem {
     private int type;
     private String name;
-    private double num;
     private double weight;
 }

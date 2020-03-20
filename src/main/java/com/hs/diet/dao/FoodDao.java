@@ -6,9 +6,10 @@ import com.hs.diet.enums.FoodSecondaryClassification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FoodDao extends JpaRepository<Food,String> {
-    Food findById(Long id);
+    Optional<Food> findById(Long id);
     List<Food> findByName(String name);
     List<Food> findBySecondaryClassification(FoodSecondaryClassification secondaryClassification);
 }

@@ -3,7 +3,7 @@ package com.hs.diet.dataServiceImpl;
 import com.hs.diet.dao.FoodDao;
 import com.hs.diet.dataService.FoodDataService;
 import com.hs.diet.entity.Food;
-import com.hs.diet.enums.FoodSecondaryClassification;
+import com.hs.diet.enums.FoodClassification;
 import com.hs.diet.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,8 @@ public class FoodDataServiceImpl implements FoodDataService {
     }
 
     @Override
-    public List<Food> findByClassification(FoodSecondaryClassification classification) {
-        return foodDao.findBySecondaryClassification(classification);
+    public List<Food> findByClassification(FoodClassification classification) {
+        return foodDao.findByClassification(classification);
     }
+
 }

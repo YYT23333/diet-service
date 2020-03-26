@@ -1,5 +1,6 @@
 package com.hs.diet.entity;
 
+import com.hs.diet.enums.DietRecordType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ public class DietRecord {
     private LocalDateTime time;
 
     @Column
-    private int type;
+    private DietRecordType type;
 
     @Column
     private double calories;

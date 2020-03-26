@@ -5,7 +5,6 @@ import com.hs.diet.enums.RecipeClassification;
 import com.hs.diet.exception.NotExistException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface RecipeDataService {
     Recipe findById(Long id) throws NotExistException;

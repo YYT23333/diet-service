@@ -1,9 +1,8 @@
 package com.hs.diet.enums;
 
-public enum RecipeClassification {
+public enum DietRecordType {
     BREAKFAST,
     LUNCH,
     SUPER,
     SNACKS;
 }
-

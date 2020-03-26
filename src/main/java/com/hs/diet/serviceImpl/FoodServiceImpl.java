@@ -1,7 +1,7 @@
 package com.hs.diet.serviceImpl;
 
 import com.hs.diet.dataService.FoodDataService;
-import com.hs.diet.enums.FoodSecondaryClassification;
+import com.hs.diet.enums.FoodClassification;
 import com.hs.diet.exception.NotExistException;
 import com.hs.diet.response.FoodDetailResponse;
 import com.hs.diet.response.FoodListResponse;
@@ -24,7 +24,8 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public FoodListResponse findByClassification(FoodSecondaryClassification classification) {
+    public FoodListResponse findByClassification(FoodClassification classification) {
         return new FoodListResponse(foodDataService.findByClassification(classification));
     }
+
 }

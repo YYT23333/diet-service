@@ -1,7 +1,7 @@
 package com.hs.diet.controller;
 
 
-import com.hs.diet.enums.FoodSecondaryClassification;
+import com.hs.diet.enums.FoodClassification;
 import com.hs.diet.exception.NotExistException;
 import com.hs.diet.response.FoodDetailResponse;
 import com.hs.diet.response.FoodListResponse;
@@ -37,18 +37,21 @@ public class FoodController {
     }
 
     @ApiOperation(value = "通过名称搜索食物")
-    @ApiImplicitParam(name = "name", value = "食物名称", required = true, dataType = "FoodSecondaryClassification")
-    @ApiResponse(code = 200, message = "Success", response = FoodListResponse.class)
+    @ApiImplicitParam(name = "name", value = "食物名称", required = true, dataType = "String")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = FoodListResponse.class)})
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
-    public ResponseEntity<Response> findByName(@PathVariable String name) throws NotExistException {
+    public ResponseEntity<Response> findByName(@PathVariable String name) {
         return new ResponseEntity<>(foodService.findByName(name), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "通过分类搜索食物")
-    @ApiImplicitParam(name = "classification", value = "食物分类", required = true, dataType = "String")
-    @ApiResponse(code = 200, message = "Success", response = FoodListResponse.class)
+    @ApiOperation(value = "通过类型搜索食物")
+    @ApiImplicitParam(name = "classification", value = "食物类型", required = true, dataType = "String")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = FoodListResponse.class)})
     @RequestMapping(value = "/classification/{classification}", method = RequestMethod.GET)
-    public ResponseEntity<Response> findByClassification(@PathVariable FoodSecondaryClassification classification) throws NotExistException {
+    public ResponseEntity<Response> findByClassification(@PathVariable FoodClassification classification) {
         return new ResponseEntity<>(foodService.findByClassification(classification), HttpStatus.OK);
     }
+
 }

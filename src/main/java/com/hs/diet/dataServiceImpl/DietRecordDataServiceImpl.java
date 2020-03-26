@@ -29,4 +29,9 @@ public class DietRecordDataServiceImpl implements DietRecordDataService {
     public List<DietRecord> findByUserId(Long userId) {
         return dietRecordDao.findByUserId(userId);
     }
+
+    @Override
+    public Long add(DietRecord record) {
+        return dietRecordDao.save(record).getId();
+    }
 }

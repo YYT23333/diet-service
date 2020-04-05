@@ -1,6 +1,9 @@
 package com.hs.diet.response;
 
 import com.hs.diet.entity.DietRecord;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,13 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
+@ApiModel
 public class DietRecordListResponse extends Response {
-    private List<DietRecordItem> items;
+    @ApiModelProperty("返回数据")
+    private List<DietRecordItem> data;
     public DietRecordListResponse(List<DietRecord> records){
-        this.items=new ArrayList<>();
+        this.code = "200";
+        this.msg = "操作成功！";
+        this.data=new ArrayList<>();
         for (DietRecord record:records) {
-            this.items.add(new DietRecordItem(record));
+            ((ArrayList) this.data).add(new DietRecordItem(record));
         }
     }
 }

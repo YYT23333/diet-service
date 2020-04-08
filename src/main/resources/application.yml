@@ -3,11 +3,7 @@ eureka:
         fetch-registry: true
         register-with-eureka: true
         service-url:
-            defaultZone: http://yyt:123456@127.0.0.1:8100/eureka
-    instance:
-        instance-id: ${spring.application.name}###${server.port}
-        ip-address: 127.0.0.1
-        prefer-ip-address: true
+            defaultZone: http://182.92.8.29:8761/eureka/
 server:
     port: 8081
 spring:
@@ -16,7 +12,7 @@ spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         password: 123456
-        url: jdbc:mysql://127.0.0.1:3306/diet?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT
+        url: jdbc:mysql://182.92.8.29:3306/homework?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT
         username: root
     jpa:
         database: mysql
@@ -26,3 +22,5 @@ spring:
         properties:
             dialect: org.hibernate.dialect.MySQL5Dialect
         show-sql: true
+    resources:
+        static-locations: classpath:static/,file:static/

@@ -14,7 +14,7 @@ public class DietRecordListResponse extends Response {
     @ApiModelProperty("返回数据")
     private List<DietRecordItem> data;
     public DietRecordListResponse(List<DietRecord> records){
-        this.code = "200";
+        this.code = 200;
         this.msg = "操作成功！";
         this.data=new ArrayList<>();
         for (DietRecord record:records) {

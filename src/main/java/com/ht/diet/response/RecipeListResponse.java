@@ -14,7 +14,7 @@ public class RecipeListResponse extends Response {
     @ApiModelProperty("返回数据")
     private List<RecipeDetailItem> data;
     public RecipeListResponse(List<Recipe> recipes){
-        this.code = "200";
+        this.code = 200;
         this.msg = "操作成功！";
         this.data=new ArrayList<>();
         for (Recipe recipe:recipes) {

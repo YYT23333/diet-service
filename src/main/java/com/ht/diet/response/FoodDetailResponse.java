@@ -11,7 +11,7 @@ public class FoodDetailResponse extends Response{
     @ApiModelProperty("返回数据")
     private FoodDetailItem data;
     public FoodDetailResponse(Food food){
-        this.code = "200";
+        this.code = 200;
         this.msg = "操作成功！";
         this.data=new FoodDetailItem(food);
     }

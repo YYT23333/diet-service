@@ -11,7 +11,7 @@ public class UploadResponse extends Response {
     @ApiModelProperty("返回数据")
     private String data;
     public UploadResponse(String url){
-        this.code = "200";
+        this.code = 200;
         this.msg = "操作成功！";
         this.data=url;
     }

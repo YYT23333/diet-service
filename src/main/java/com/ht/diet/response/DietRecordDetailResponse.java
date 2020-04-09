@@ -12,7 +12,7 @@ public class DietRecordDetailResponse extends Response {
     private DietRecordItem data;
     public DietRecordDetailResponse(DietRecord record){
         this.data=new DietRecordItem(record);
-        this.code = "200";
+        this.code = 200;
         this.msg = "操作成功！";
     }
 }

@@ -45,21 +45,21 @@ public class RecipeController {
         return new ResponseEntity<>(recipeService.findByClassification(classification), HttpStatus.OK);
     }
 
-    @ApiOperation(value="上传图片")
-    @ApiImplicitParam(name="multipartFile",value="上传图片",required = true)
+    @ApiOperation(value = "上传图片")
+    @ApiImplicitParam(name = "multipartFile", value = "上传图片", required = true)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = UploadResponse.class)})
-    @RequestMapping(value="/img",method = RequestMethod.POST)
-    public ResponseEntity<Response> uploadPicture ( @RequestParam("img") MultipartFile img ) throws IOException {
-        String name=UUID.randomUUID().toString()+".jpg";
-        return new ResponseEntity<>(new UploadResponse(FileUtil.upload(img.getInputStream(), "image/", name)),HttpStatus.OK);
+    @RequestMapping(value = "/img", method = RequestMethod.POST)
+    public ResponseEntity<Response> uploadPicture(@RequestParam("img") MultipartFile img) throws IOException {
+        String name = UUID.randomUUID().toString() + ".jpg";
+        return new ResponseEntity<>(new UploadResponse(FileUtil.upload(img.getInputStream(), "image/", name)), HttpStatus.OK);
     }
 
     @ApiOperation(value = "创建食谱")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = AddResponse.class)})
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<Response> create(@RequestBody @ApiParam RecipeParameter parameter){
+    public ResponseEntity<Response> create(@RequestBody @ApiParam RecipeParameter parameter) {
         return new ResponseEntity<>(recipeService.create(parameter), HttpStatus.OK);
     }
 
@@ -78,5 +78,38 @@ public class RecipeController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Response> delete(@PathVariable long id) throws NotExistException {
         return new ResponseEntity<>(recipeService.delete(id), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "收藏食谱")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "long"),
+            @ApiImplicitParam(name = "recipeId", value = "菜谱id", required = true, dataType = "long")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = AddResponse.class)})
+    @RequestMapping(value = "/{userId}/collection/{recipeId}", method = RequestMethod.POST)
+    public ResponseEntity<Response> collect(@PathVariable long userId, @PathVariable long recipeId) throws NotExistException {
+        return new ResponseEntity<>(recipeService.collect(userId, recipeId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "取消收藏食谱")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "long"),
+            @ApiImplicitParam(name = "recipeId", value = "菜谱id", required = true, dataType = "long")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Response.class)})
+    @RequestMapping(value = "/{userId}/collection/{recipeId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Response> deleteCollection(@PathVariable long userId, @PathVariable long recipeId) throws NotExistException {
+        return new ResponseEntity<>(recipeService.deleteCollection(userId, recipeId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据用户id获取收藏的食谱")
+    @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "long")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Response.class)})
+    @RequestMapping(value = "/{userId}/collection", method = RequestMethod.GET)
+    public ResponseEntity<Response> findCollectionByUserId(@PathVariable long userId) throws NotExistException {
+        return new ResponseEntity<>(recipeService.findCollectionRecipeByUserId(userId), HttpStatus.OK);
     }
 }

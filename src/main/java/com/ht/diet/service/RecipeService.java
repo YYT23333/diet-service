@@ -14,4 +14,7 @@ public interface RecipeService {
     AddResponse create(RecipeParameter parameter);
     Response update(RecipeParameter parameter)throws NotExistException;
     Response delete(long id)throws NotExistException;
+    RecipeListResponse findCollectionRecipeByUserId(long userId);
+    AddResponse collect(long userId,long recipeId) throws NotExistException;
+    Response deleteCollection(long userId,long recipeId) throws NotExistException;
 }

@@ -101,10 +101,10 @@ public class RecipeController {
     @ApiOperation(value = "根据用户id获取收藏的食谱")
     @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "long")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Response.class)})
+            @ApiResponse(code = 200, message = "Success", response = RecipeListResponse.class)})
     @RequestMapping(value = "/{userId}/collection", method = RequestMethod.GET)
-    public ResponseEntity<Response> findCollectionByUserId(@PathVariable long userId) throws NotExistException {
-        return new ResponseEntity<>(recipeService.findCollectionRecipeByUserId(userId), HttpStatus.OK);
+    public RecipeListResponse findCollectionByUserId(@PathVariable long userId) throws NotExistException {
+        return recipeService.findCollectionRecipeByUserId(userId);
     }
 
     @ApiOperation(value = "获取每个食谱分类下有多少食谱")

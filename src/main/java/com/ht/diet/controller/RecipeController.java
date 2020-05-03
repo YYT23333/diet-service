@@ -37,22 +37,16 @@ public class RecipeController {
     }
 
     @ApiOperation(value = "通过分类搜索食谱")
-    @ApiImplicitParam(name = "classification", value = "食谱分类", required = true, dataType = "String")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "classification", value = "食谱分类", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "page", value = "页数", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "pageSize", value = "每页大小", required = true, dataType = "int")
+    })
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = RecipeListResponse.class)})
     @RequestMapping(value = "/classification/{classification}", method = RequestMethod.GET)
-    public ResponseEntity<Response> findByClassification(@PathVariable RecipeClassification classification) {
-        return new ResponseEntity<>(recipeService.findByClassification(classification), HttpStatus.OK);
-    }
-
-    @ApiOperation(value = "上传图片")
-    @ApiImplicitParam(name = "multipartFile", value = "上传图片", required = true)
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = UploadResponse.class)})
-    @RequestMapping(value = "/img", method = RequestMethod.POST)
-    public ResponseEntity<Response> uploadPicture(@RequestParam("img") MultipartFile img) throws IOException {
-        String name = UUID.randomUUID().toString() + ".jpg";
-        return new ResponseEntity<>(new UploadResponse(FileUtil.upload(img.getInputStream(), "image/", name)), HttpStatus.OK);
+    public ResponseEntity<Response> findByClassification(@PathVariable RecipeClassification classification,@RequestParam int page,@RequestParam int pageSize) {
+        return new ResponseEntity<>(recipeService.findByClassification(classification,page,pageSize), HttpStatus.OK);
     }
 
     @ApiOperation(value = "创建食谱")
@@ -111,5 +105,13 @@ public class RecipeController {
     @RequestMapping(value = "/{userId}/collection", method = RequestMethod.GET)
     public ResponseEntity<Response> findCollectionByUserId(@PathVariable long userId) throws NotExistException {
         return new ResponseEntity<>(recipeService.findCollectionRecipeByUserId(userId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取每个食谱分类下有多少食谱")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = RecipeClassificationCountResponse.class)})
+    @RequestMapping(value = "/classification/count", method = RequestMethod.GET)
+    public ResponseEntity<Response> countByRecipeClassification() {
+        return new ResponseEntity<>(recipeService.countByRecipeClassification(), HttpStatus.OK);
     }
 }

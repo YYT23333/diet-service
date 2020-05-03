@@ -1,6 +1,5 @@
 package com.ht.diet.dao;
 
-import com.ht.diet.entity.Recipe;
 import com.ht.diet.entity.RecipeCollection;
 import org.springframework.data.jpa.repository.JpaRepository;
 

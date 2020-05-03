@@ -6,6 +6,7 @@ import com.ht.diet.entity.Recipe;
 import com.ht.diet.enums.RecipeClassification;
 import com.ht.diet.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +28,8 @@ public class RecipeDataServiceImpl implements RecipeDataService {
     }
 
     @Override
-    public List<Recipe> findByClassification(RecipeClassification classification) {
-        return recipeDao.findByClassificationAndIsValid(classification,1);
+    public List<Recipe> findByClassification(RecipeClassification classification, Pageable pageable) {
+        return recipeDao.findByClassificationAndIsValid(classification.ordinal(),1,pageable);
     }
 
     @Override
@@ -58,5 +59,10 @@ public class RecipeDataServiceImpl implements RecipeDataService {
         else{
             throw new NotExistException("Recipe ID",id);
         }
+    }
+
+    @Override
+    public List countByClassification() {
+        return recipeDao.countByClassification();
     }
 }

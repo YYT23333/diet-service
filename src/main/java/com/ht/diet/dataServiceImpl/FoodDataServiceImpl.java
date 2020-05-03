@@ -6,6 +6,7 @@ import com.ht.diet.entity.Food;
 import com.ht.diet.enums.FoodClassification;
 import com.ht.diet.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,13 +28,18 @@ public class FoodDataServiceImpl implements FoodDataService {
     }
 
     @Override
-    public List<Food> findByName(String name) {
-        return foodDao.findByName(name);
+    public List<Food> findByName(String name,Pageable pageable) {
+        return foodDao.findByName(name,pageable);
     }
 
     @Override
     public List<Food> findByClassification(FoodClassification classification) {
         return foodDao.findByClassification(classification);
+    }
+
+    @Override
+    public List<Food> getAll(Pageable pageable) {
+        return foodDao.getAll(pageable);
     }
 
 }

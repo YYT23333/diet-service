@@ -7,7 +7,11 @@ import com.ht.diet.response.FoodDetailResponse;
 import com.ht.diet.response.FoodListResponse;
 import com.ht.diet.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class FoodServiceImpl implements FoodService {
@@ -18,14 +22,22 @@ public class FoodServiceImpl implements FoodService {
         return new FoodDetailResponse(foodDataService.findById(id));
     }
 
+
     @Override
-    public FoodListResponse findByName(String name) {
-        return new FoodListResponse(foodDataService.findByName(name));
+    public FoodListResponse findByName(String name,int page,int pageSize) {
+        Pageable pageable=PageRequest.of(page,pageSize);
+        return new FoodListResponse(foodDataService.findByName(name,pageable));
     }
 
     @Override
     public FoodListResponse findByClassification(FoodClassification classification) {
         return new FoodListResponse(foodDataService.findByClassification(classification));
+    }
+
+    @Override
+    public FoodListResponse getAll(int page,int pageSize) {
+        Pageable pageable=PageRequest.of(page,pageSize);
+        return new FoodListResponse(foodDataService.getAll(pageable));
     }
 
 }

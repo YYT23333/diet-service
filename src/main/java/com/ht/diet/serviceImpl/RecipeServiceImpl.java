@@ -7,14 +7,14 @@ import com.ht.diet.entity.RecipeCollection;
 import com.ht.diet.enums.RecipeClassification;
 import com.ht.diet.exception.NotExistException;
 import com.ht.diet.parameters.RecipeParameter;
-import com.ht.diet.response.AddResponse;
-import com.ht.diet.response.RecipeDetailResponse;
-import com.ht.diet.response.RecipeListResponse;
-import com.ht.diet.response.Response;
+import com.ht.diet.response.*;
 import com.ht.diet.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +30,9 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public RecipeListResponse findByClassification(RecipeClassification classification) {
-        return  new RecipeListResponse(recipeDataService.findByClassification(classification));
+    public RecipeListResponse findByClassification(RecipeClassification classification,int page,int pageSize) {
+        Pageable pageable=PageRequest.of(page,pageSize);
+        return  new RecipeListResponse(recipeDataService.findByClassification(classification,pageable));
     }
 
     @Override
@@ -72,5 +73,19 @@ public class RecipeServiceImpl implements RecipeService {
     public Response deleteCollection(long userId, long recipeId) throws NotExistException {
         recipeCollectionDataService.deleteByUserIdAndRecipeId(userId,recipeId);
         return new Response();
+    }
+
+    @Override
+    public RecipeClassificationCountResponse countByRecipeClassification() {
+        List list = recipeDataService.countByClassification();
+        List<RecipeClassificationCountItem> items = new ArrayList<>();
+        for(Object row:list){
+            RecipeClassificationCountItem item = new RecipeClassificationCountItem();
+            Object[] cells = (Object[]) row;
+            item.setClassification((RecipeClassification.values()[(int)cells[0]]));
+            item.setCount(((BigInteger) cells[1]).intValue());
+            items.add(item);
+        }
+        return new RecipeClassificationCountResponse(items);
     }
 }

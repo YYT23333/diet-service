@@ -21,4 +21,8 @@ public class RecipeListResponse extends Response {
             ((ArrayList) this.data).add(new RecipeDetailItem(recipe));
         }
     }
+    public RecipeListResponse(int code,String msg){
+        this.code = code;
+        this.msg = msg;
+    }
 }

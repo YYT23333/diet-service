@@ -10,17 +10,15 @@ import java.util.List;
 
 @Data
 @ApiModel
-public class DietRecordListResponse extends Response {
+public class DietRecordDetailListResponse extends Response{
     @ApiModelProperty("返回数据")
-    private List<DietRecordListItem> data;
-    public DietRecordListResponse(List<DietRecordListItem> records){
+    private List<DietRecordDetailItem> data;
+    public DietRecordDetailListResponse(List<DietRecord> records){
         this.code = 200;
         this.msg = "操作成功！";
         this.data=new ArrayList<>();
-        this.data=records;
-    }
-    public DietRecordListResponse(int code,String msg){
-        this.code = code;
-        this.msg = msg;
+        for (DietRecord record:records) {
+            ((ArrayList) this.data).add(new DietRecordDetailItem(record));
+        }
     }
 }

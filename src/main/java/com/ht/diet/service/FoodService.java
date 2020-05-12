@@ -7,7 +7,7 @@ import com.ht.diet.response.FoodListResponse;
 import org.springframework.data.domain.Pageable;
 
 public interface FoodService {
-    FoodDetailResponse findById(long id)throws NotExistException;
+    FoodDetailResponse findById(long id);
     FoodListResponse findByName(String name,int page,int pageSize);
     FoodListResponse findByClassification(FoodClassification classification);
     FoodListResponse getAll(int page,int pageSize);

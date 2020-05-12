@@ -22,12 +22,16 @@ import java.util.UUID;
 @RequestMapping("/file")
 public class FileController {
     @ApiOperation(value = "上传图片")
-    @ApiImplicitParam(name = "multipartFile", value = "上传图片", required = true)
+    @ApiImplicitParam(name = "img", value = "上传图片", required = true,dataType = "file")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = UploadResponse.class)})
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<Response> uploadPicture(@RequestParam("img") MultipartFile img) throws IOException {
+    public ResponseEntity<Response> uploadPicture(@RequestParam("img") MultipartFile img){
         String name = UUID.randomUUID().toString() + ".jpg";
-        return new ResponseEntity<>(new UploadResponse(FileUtil.upload(img.getInputStream(), "image/", name)), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(new UploadResponse(FileUtil.upload(img.getInputStream(), "image/", name)), HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(new UploadResponse(500,e.getMessage()),HttpStatus.OK);
+        }
     }
 }

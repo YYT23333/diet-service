@@ -37,7 +37,6 @@ public class DietRecord {
 
     public DietRecord(DietRecordParameter parameter){
         this.userId=parameter.getUserId();
-        this.time=parameter.getTime();
         this.type=parameter.getType();
         this.calories=parameter.getCalories();
         this.dietItems=parameter.getDietItems();

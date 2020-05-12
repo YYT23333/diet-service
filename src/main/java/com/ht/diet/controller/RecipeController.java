@@ -1,24 +1,14 @@
 package com.ht.diet.controller;
 
 import com.ht.diet.enums.RecipeClassification;
-import com.ht.diet.exception.NotExistException;
 import com.ht.diet.parameters.RecipeParameter;
 import com.ht.diet.response.*;
 import com.ht.diet.service.RecipeService;
-import com.ht.diet.uitls.FileUtil;
 import io.swagger.annotations.*;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/recipe")
@@ -29,10 +19,9 @@ public class RecipeController {
     @ApiOperation(value = "通过id获取食谱详情")
     @ApiImplicitParam(name = "id", value = "食谱id", required = true, dataType = "long")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = RecipeDetailResponse.class),
-            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
+            @ApiResponse(code = 200, message = "Success", response = RecipeDetailResponse.class)})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Response> findById(@PathVariable long id) throws NotExistException {
+    public ResponseEntity<Response> findById(@PathVariable long id) {
         return new ResponseEntity<>(recipeService.findById(id), HttpStatus.OK);
     }
 
@@ -61,7 +50,7 @@ public class RecipeController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Response.class)})
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<Response> pdate(@RequestBody @ApiParam RecipeParameter parameter) throws NotExistException {
+    public ResponseEntity<Response> pdate(@RequestBody @ApiParam RecipeParameter parameter) {
         return new ResponseEntity<>(recipeService.update(parameter), HttpStatus.OK);
     }
 
@@ -70,7 +59,7 @@ public class RecipeController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Response.class)})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Response> delete(@PathVariable long id) throws NotExistException {
+    public ResponseEntity<Response> delete(@PathVariable long id){
         return new ResponseEntity<>(recipeService.delete(id), HttpStatus.OK);
     }
 
@@ -82,7 +71,7 @@ public class RecipeController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = AddResponse.class)})
     @RequestMapping(value = "/{userId}/collection/{recipeId}", method = RequestMethod.POST)
-    public ResponseEntity<Response> collect(@PathVariable long userId, @PathVariable long recipeId) throws NotExistException {
+    public ResponseEntity<Response> collect(@PathVariable long userId, @PathVariable long recipeId){
         return new ResponseEntity<>(recipeService.collect(userId, recipeId), HttpStatus.OK);
     }
 
@@ -94,7 +83,7 @@ public class RecipeController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Response.class)})
     @RequestMapping(value = "/{userId}/collection/{recipeId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Response> deleteCollection(@PathVariable long userId, @PathVariable long recipeId) throws NotExistException {
+    public ResponseEntity<Response> deleteCollection(@PathVariable long userId, @PathVariable long recipeId){
         return new ResponseEntity<>(recipeService.deleteCollection(userId, recipeId), HttpStatus.OK);
     }
 
@@ -103,7 +92,7 @@ public class RecipeController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = RecipeListResponse.class)})
     @RequestMapping(value = "/{userId}/collection", method = RequestMethod.GET)
-    public RecipeListResponse findCollectionByUserId(@PathVariable long userId) throws NotExistException {
+    public RecipeListResponse findCollectionByUserId(@PathVariable long userId){
         return recipeService.findCollectionRecipeByUserId(userId);
     }
 
@@ -113,5 +102,17 @@ public class RecipeController {
     @RequestMapping(value = "/classification/count", method = RequestMethod.GET)
     public ResponseEntity<Response> countByRecipeClassification() {
         return new ResponseEntity<>(recipeService.countByRecipeClassification(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取某个食谱是否被某个用户收藏")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "long"),
+            @ApiImplicitParam(name = "recipeId", value = "菜谱id", required = true, dataType = "long")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = BooleanResponse.class)})
+    @RequestMapping(value = "/{userId}/{recipeId}", method = RequestMethod.GET)
+    public ResponseEntity<Response> IsUserCollectRecipe(@PathVariable long userId,@PathVariable long recipeId ) {
+        return new ResponseEntity<>(recipeService.isUserCollectRecipe(userId,recipeId), HttpStatus.OK);
     }
 }

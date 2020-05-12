@@ -15,9 +15,6 @@ public class DietRecordParameter {
     @ApiModelProperty("用户id")
     private long userId;
 
-    @ApiModelProperty("创建时间")
-    private LocalDateTime time;
-
     @ApiModelProperty("饮食记录类型")
     private DietRecordType type;
 

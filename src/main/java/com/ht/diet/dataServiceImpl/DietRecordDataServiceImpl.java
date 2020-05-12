@@ -7,6 +7,8 @@ import com.ht.diet.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,8 +28,8 @@ public class DietRecordDataServiceImpl implements DietRecordDataService {
     }
 
     @Override
-    public List<DietRecord> findByUserId(long userId) {
-        return dietRecordDao.findByUserId(userId);
+    public List<DietRecord> findByUserIdAndTime(long userId, LocalDateTime time) {
+        return dietRecordDao.findByUserIdAndTime(userId,time);
     }
 
     @Override

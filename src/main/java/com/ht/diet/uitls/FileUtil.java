@@ -19,6 +19,9 @@ public class FileUtil {
     /** 文件存放的目录 **/
     private static String fileDir = "/upload/";
 
+    /** 前缀 **/
+    private static String pre="182.92.8.29:8088/diet-service";
+
     /**
      * 上传单个文件
      * 最后文件存放路径为：static/upload/image/test.jpg
@@ -43,7 +46,7 @@ public class FileUtil {
             e.printStackTrace();
             return null;
         }
-
+        resultPath=pre+resultPath;
         return resultPath;
     }
 

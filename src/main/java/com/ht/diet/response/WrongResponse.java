@@ -6,9 +6,8 @@ import lombok.Data;
 @Data
 @ApiModel
 public class WrongResponse extends Response {
-    public WrongResponse(int infoCode, String description) {
-        this.code = infoCode;
-        this.msg = description;
+    public WrongResponse(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
     }
-
 }

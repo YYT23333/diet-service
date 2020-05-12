@@ -15,4 +15,8 @@ public class RecipeDetailResponse extends Response {
         this.msg = "操作成功！";
         this.data=new RecipeDetailItem(recipe);
     }
+    public RecipeDetailResponse(int code,String msg){
+        this.code = code;
+        this.msg = msg;
+    }
 }

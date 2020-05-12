@@ -21,6 +21,17 @@ public class RecipeCollectionDataServiceImpl implements RecipeCollectionDataServ
     }
 
     @Override
+    public RecipeCollection findByUserIdAndRecipeId(long userId, long recipeId) throws NotExistException {
+        Optional<RecipeCollection> optional=recipeCollectionDao.findByUserIdAndRecipeId(userId,recipeId);
+        if(optional.isPresent()){
+            return optional.get();
+        }
+        else{
+            throw new NotExistException("RecipeCollection with this recipe and userId：",userId);
+        }
+    }
+
+    @Override
     public long add(RecipeCollection collection) {
        return recipeCollectionDao.save(collection).getId();
     }

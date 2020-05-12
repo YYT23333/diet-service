@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface RecipeCollectionDataService {
     List<RecipeCollection> findByUserId(long userId);
+    RecipeCollection findByUserIdAndRecipeId(long userId, long recipeId) throws NotExistException;
     long add(RecipeCollection collection);
     void deleteByUserIdAndRecipeId(long userId,long recipeId)throws NotExistException;
 }

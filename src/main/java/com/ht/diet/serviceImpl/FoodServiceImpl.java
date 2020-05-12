@@ -9,7 +9,6 @@ import com.ht.diet.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -18,8 +17,12 @@ public class FoodServiceImpl implements FoodService {
     @Autowired
     private FoodDataService foodDataService;
     @Override
-    public FoodDetailResponse findById(long id) throws NotExistException {
-        return new FoodDetailResponse(foodDataService.findById(id));
+    public FoodDetailResponse findById(long id){
+        try {
+            return new FoodDetailResponse(foodDataService.findById(id));
+        } catch (NotExistException e) {
+            return new FoodDetailResponse(500,e.getMessage());
+        }
     }
 
 

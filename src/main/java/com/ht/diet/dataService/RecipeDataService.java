@@ -14,5 +14,7 @@ public interface RecipeDataService {
     void update(Recipe recipe)throws NotExistException;
     void delete(long id)throws NotExistException;
     List countByClassification();
+    List<Recipe> getAll(Pageable pageable);
+    List<Recipe> findByName(String name,Pageable pageable);
     
 }

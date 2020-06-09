@@ -18,4 +18,12 @@ public interface RecipeDao extends JpaRepository<Recipe,String> {
     List<Recipe> findByClassificationAndIsValid(int classification, int isValid, Pageable pageable);
     @Query(nativeQuery = true,value = "select classification,count(*) from recipe where is_valid=1 group by classification")
     List countByClassification();
+    @Query(nativeQuery = true,
+            value = "select * from recipe where recipe.name like %?1%",
+            countQuery = "select * from recipe where recipe.name like %?1%")
+    List<Recipe> findByName(String name, Pageable pageable);
+    @Query(nativeQuery = true,
+            value = "select * from recipe",
+            countQuery = "select * from")
+    List<Recipe> getAll(Pageable pageable);
 }

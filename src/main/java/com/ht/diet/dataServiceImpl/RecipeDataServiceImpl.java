@@ -65,4 +65,14 @@ public class RecipeDataServiceImpl implements RecipeDataService {
     public List countByClassification() {
         return recipeDao.countByClassification();
     }
+
+    @Override
+    public List<Recipe> getAll(Pageable pageable) {
+        return recipeDao.getAll(pageable);
+    }
+
+    @Override
+    public List<Recipe> findByName(String name, Pageable pageable) {
+        return recipeDao.findByName(name,pageable);
+    }
 }

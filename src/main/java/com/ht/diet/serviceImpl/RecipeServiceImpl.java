@@ -125,4 +125,16 @@ public class RecipeServiceImpl implements RecipeService {
             return new BooleanResponse(false);
         }
     }
+
+    @Override
+    public RecipeListResponse getAll(int page, int pageSize) {
+        Pageable pageable=PageRequest.of(page,pageSize);
+        return new RecipeListResponse(recipeDataService.getAll(pageable));
+    }
+
+    @Override
+    public RecipeListResponse findByName(String name, int page, int pageSize) {
+        Pageable pageable=PageRequest.of(page,pageSize);
+        return new RecipeListResponse(recipeDataService.findByName(name,pageable));
+    }
 }

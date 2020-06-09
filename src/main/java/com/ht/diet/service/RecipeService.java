@@ -17,4 +17,7 @@ public interface RecipeService {
     Response deleteCollection(long userId,long recipeId);
     RecipeClassificationCountResponse countByRecipeClassification();
     BooleanResponse isUserCollectRecipe(long userId,long recipeId);
+    RecipeListResponse getAll(int page,int pageSize);
+    RecipeListResponse findByName(String name,int page,int pageSize);
+
 }

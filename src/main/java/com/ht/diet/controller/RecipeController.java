@@ -50,7 +50,7 @@ public class RecipeController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Response.class)})
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<Response> pdate(@RequestBody @ApiParam RecipeParameter parameter) {
+    public ResponseEntity<Response> update(@RequestBody @ApiParam RecipeParameter parameter) {
         return new ResponseEntity<>(recipeService.update(parameter), HttpStatus.OK);
     }
 
@@ -114,5 +114,29 @@ public class RecipeController {
     @RequestMapping(value = "/{userId}/{recipeId}", method = RequestMethod.GET)
     public ResponseEntity<Response> IsUserCollectRecipe(@PathVariable long userId,@PathVariable long recipeId ) {
         return new ResponseEntity<>(recipeService.isUserCollectRecipe(userId,recipeId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "通过名称搜索食谱")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "食谱名称", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "page", value = "页数", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "pageSize", value = "每页大小", required = true, dataType = "int")})
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = RecipeListResponse.class)})
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+    public ResponseEntity<Response> findByName(@PathVariable String name, @RequestParam int page, @RequestParam int pageSize) {
+        return new ResponseEntity<>(recipeService.findByName(name, page, pageSize), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取所有食谱")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "页数", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "pageSize", value = "每页大小", required = true, dataType = "int")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = RecipeListResponse.class)})
+    @RequestMapping(value = "all", method = RequestMethod.GET)
+    public ResponseEntity<Response> getAll(@RequestParam int page, @RequestParam int pageSize) {
+        return new ResponseEntity<>(recipeService.getAll(page, pageSize), HttpStatus.OK);
     }
 }
